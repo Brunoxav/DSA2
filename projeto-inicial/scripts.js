@@ -1,41 +1,47 @@
 var botao = document.getElementById("botao");
 botao.addEventListener("click", alertar, false);
-
 var nome = document.getElementById("nome");
-
-var email = document.getElementById("email");
-
+ 
 var saida = document.getElementById("saida-de-dados");
-
-var tel = document.getElementById("tel");
-
+ 
+var email = document.getElementById("email");
+var telefone = document.getElementById("telefone");
 var cep = document.getElementById("cep");
-
-var log = document.getElementById("log");
-
-var num = document.getElementById("num");
-
-var compl = document.getElementById("compl");
-
-var brr = document.getElementById("brr");
-
-var cid = document.getElementById("cid");
-
-var est = document.getElementById("est");
-
+var logradouro = document.getElementById("logradouro");
+var numero = document.getElementById("numero");
+var complemento = document.getElementById("complemento");
+var bairro = document.getElementById("bairro");
+var cidade = document.getElementById("cidade");
+var estado = document.getElementById("estado");
+ 
 function alertar(event){
-    //alert("Você clicou num botão azul!!!" + " " + nome.value); 
-
-    saida.innerText=
-      "Nome: " + nome.value +
-     "\n Email: " +email.value +
-     "\n Telefone: "+tel.value +
-     "\n CEP: "+cep.value +
-     "\n Logradouro: "+log.value +
-     "\n Número: "+num.value +
-     "\n Complemento: "+compl.value +
-     "\n Bairro: "+brr.value +
-     "\n Cidade: "+cid.value +
-     "\n Estado: "+est.value;
-
+    //alert("Você clicou no botão!!!! " + nome.value);
+ 
+    const url = `https://viacep.com.br/ws/${cep.value}/json`;
+ 
+    fetch(url)
+    .then(resposta=>resposta.json())
+    .then(dados=>{
+            logradouro.value = dados.logradouro;
+            bairro.value = dados.bairro;
+            cidade.value = dados.localidade;
+            estado.value = dados.uf;
+ 
+            saida.innerText = "Nome: " + nome.value +
+            "\n Email: " + email.value +
+            "\n Telefone: " + telefone.value +
+            "\n CEP: " + cep.value +
+            "\n Logradouro: " + logradouro.value +
+            "\n Número: " + numero.value +
+            "\n Complemento: " + complemento.value +
+            "\n Bairro: " + bairro.value +
+            "\n Cidade: " + cidade.value +
+            "\n Estado: " + estado.value;
+ 
+        })
+ 
+ 
+ 
+   
+ 
 }
