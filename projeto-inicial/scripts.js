@@ -19,13 +19,25 @@ function alertar(event){
  
     const url = `https://viacep.com.br/ws/${cep.value}/json`;
  
-    fetch(url)
-    .then(resposta=>resposta.json())
-    .then(dados=>{
-            logradouro.value = dados.logradouro;
-            bairro.value = dados.bairro;
-            cidade.value = dados.localidade;
-            estado.value = dados.uf;
+    fetch(url) 
+    .then(function(resposta){
+        return resposta.json();
+    })
+    .then(
+        function(dadosdoEndereço){
+            logradouro.value = dadosdoEndereço.logradouro;
+            bairro.value = dadosdoEndereço.bairro;
+            cidade.value = dadosdoEndereço.localidade;
+            estado.value = dadosdoEndereço.uf;
+            complemento.value = dadosdoEndereço.complemento
+
+        }
+        )
+    .catch(function(e){
+        alert(e.message("burro"));
+    }
+    )    
+    
  
             saida.innerText = "Nome: " + nome.value +
             "\n Email: " + email.value +
@@ -38,10 +50,6 @@ function alertar(event){
             "\n Cidade: " + cidade.value +
             "\n Estado: " + estado.value;
  
-        })
+        }
  
  
- 
-   
- 
-}
