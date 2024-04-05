@@ -16,6 +16,15 @@ var estado = document.getElementById("estado");
  
 function alertar(event){
     //alert("Você clicou no botão!!!! " + nome.value);
+
+    //validação dos dados
+    if(cep.value.length < 8){
+        alert('Entre com um CEP válido, cabaço.');
+        return;
+    }
+
+    // formatar os dados
+    cep.value = cep.value.replace('-', '');
  
     const url = `https://viacep.com.br/ws/${cep.value}/json`;
  
@@ -31,13 +40,14 @@ function alertar(event){
             estado.value = dadosdoEndereço.uf;
             complemento.value = dadosdoEndereço.complemento
 
+            saidaDeDados(); //chamada de dados
         }
         )
     .catch(function(e){
         alert(e.message("burro"));
     }
-    )    
-    
+    );    
+        function saidaDeDados(){
  
             saida.innerText = "Nome: " + nome.value +
             "\n Email: " + email.value +
@@ -49,7 +59,7 @@ function alertar(event){
             "\n Bairro: " + bairro.value +
             "\n Cidade: " + cidade.value +
             "\n Estado: " + estado.value;
- 
+            }
         }
  
  
